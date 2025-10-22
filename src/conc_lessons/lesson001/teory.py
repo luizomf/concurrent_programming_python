@@ -371,7 +371,7 @@ ao mesmo tempo{df}.
 __L__
 Ele é um mecanismo de proteção do Python para evitar {dii}Race Conditions{df}.
 __L__
-Irônicamente, remover um lock global como o GIL, envolve a criação de outros locks 
+Ironicamente, remover um lock global como o GIL, envolve a criação de outros locks 
 de menor escopo em locais específicos. {bi}Isso deixará o Python mais lento.{df}
 __L__
 Tudo isso significa que, mesmo com várias threads, seu código pode se comportar 
@@ -482,7 +482,7 @@ __L__ {cya}
 teory_cpu_bound_hardware = f"""\
 {hea}❯❯ Operações CPU-bound são limitadas pelo hardware{df}
 __L__
-O tempo de espera {hi} não é inútil {df}. Pode ocorrer algum disperdício, mas por 
+O tempo de espera {hi} não é inútil {df}. Pode ocorrer algum desperdício, mas por 
 estarem operando em carga máxima ou por erro do programador. 
 O fato é que o limite é a própria CPU (ou núcleo da CPU).
 __L__
