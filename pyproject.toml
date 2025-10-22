@@ -1,0 +1,80 @@
+[project]
+name = "conc_lessons"
+version = "0.0.1"
+description = "Concurrent Programming in Python"
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Luiz Otávio" }]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+conc_lessons = "conc_lessons.main:run"
+
+[project.urls]
+Homepage = "https://www.otaviomiranda.com.br/"
+
+[tool.ruff]
+line-length = 88
+target-version = "py314"
+fix = true
+show-fixes = true
+indent-width = 4
+exclude = [".venv"]
+
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+  "T201",    # Checks for print statements, 
+  "COM812",  # Checks for the absence of trailing commas.
+  "INP001",  # Checks for packages that are missing an __init__.py file.
+  "D",       # All pydocstyle (D)
+  "ANN401",  # Checks that function arguments are annotated with a more specific type than Any.
+  "ERA001",  # Checks for commented-out Python code.
+  "A004",    # Shadowing Python Builtin
+  "PLR0913", # Too many arguments in function definition (6 > 5)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["ANN201", "S101"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+[tool.ruff.lint.isort]
+known-first-party = ['conc_lessons']
+
+[tool.pyright]
+typeCheckingMode = "standard"
+pythonVersion = "3.14"
+include = ["src"]
+exclude = [
+  "**/venv",
+  "**/.venv",
+  "**/env",
+  "**/.env",
+  "**/node_modules",
+  "**/__pycache__",
+]
+venv = ".venv"
+venvPath = "."
+executionEnvironments = [{ root = "src" }]
+
+
+[tool.pytest.ini_options]
+addopts = "-s --color=yes --tb=short"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
