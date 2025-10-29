@@ -4,6 +4,8 @@
 import re
 import shutil
 
+MAX_COLOR_NO = 255
+
 CSI = "\x1b["  # Control Sequence Introducer
 ALT_ON = f"{CSI}?1049h"  # Alternative screen buffer ON/OFF
 ALT_OFF = f"{CSI}?1049l"
@@ -88,7 +90,7 @@ blab = f"{CSI}48;5;232m"  # black background
 bla = f"{CSI}38;5;232m"  # black foreground
 whib = f"{CSI}48;5;8m"  # white background
 whi = f"{CSI}38;5;255m"  # white foreground
-redb = f"{CSI}48;5;196m"  # red background
+redb = f"{CSI}48;5;204m"  # red background
 red = f"{CSI}38;5;204m"  # red foreground
 purb = f"{CSI}48;5;93m"  # purple background
 pur = f"{CSI}38;5;141m"  # purple foreground
@@ -104,6 +106,18 @@ orab = f"{CSI}48;5;202m"  # orange background
 ora = f"{CSI}38;5;214m"  # orange foreground
 yelb = f"{CSI}48;5;222m"  # yellow background
 yel = f"{CSI}38;5;222m"  # yellow foreground
+
+CLRS: list[str] = [
+    f"{CSI}38;5;{i}m" if i <= MAX_COLOR_NO else f"{CSI}38;5;{15}m"
+    for i in [
+        *range(2, 8),
+        *range(10, 16),
+        *range(28, 52),
+        *range(67, 232),
+        *range(232, 1031),
+    ]
+]
+CLRSBG: list[str] = [redb, purb, pinb, blub, cyab, greb, orab, yelb]
 
 fg = f"{CSI}38;5;15m"  # foreground
 bg = f"{CSI}49m"  # background (I'm using reset background)
@@ -129,6 +143,7 @@ pcb = f"{pinb}{bla}{b}"  # process bg color (termos sobre processos)
 tc = f"{yel}"  # threads color (termos sobre threads)
 tcb = f"{yelb}{bla}{b}"  # threads bg color (termos sobre threads)
 hea = f"{cya}{bi}"  # Titles
+
 
 if __name__ == "__main__":
     import time
