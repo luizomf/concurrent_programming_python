@@ -1,4 +1,4 @@
-# Um exemplo para criar threads com threading.Thread
+# Entendendo threading.Thread
 
 if __name__ == "__main__":
     pass
