@@ -98,7 +98,7 @@ class Print:
         sep="", clr=Ansi.gre, tagclrbg=Ansi.greb, tagclrfg=Ansi.bla, tag=" Success: "
     )
     debug = make_partial_print(
-        sep="", clr=Ansi.blu, tagclrbg=Ansi.blub, tagclrfg=Ansi.bla, tag=" Success: "
+        sep="", clr=Ansi.blu, tagclrbg=Ansi.blub, tagclrfg=Ansi.bla, tag=" Debug: "
     )
 
     black = make_partial_print(clr=f"{Ansi.foreground(0)}{Ansi.background(15)}")
