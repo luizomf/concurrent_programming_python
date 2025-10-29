@@ -7,8 +7,8 @@ BUSY_WAIT_TIME = 1 / 100
 # TODOS OS VALORES COM MIN E MAX SÃO ALEATÓRIOS.
 # Se você configurar um valor igual para ambos, este valor será fixo.
 
-MIN_NAP: Final[float] = 1.00
-MAX_NAP: Final[float] = 1.00
+MIN_NAP: Final[float] = 0
+MAX_NAP: Final[float] = 10
 
 # Quantidade mínima e máxima de funções que devem ser executadas em concorrência
 # Isso deverá ser limitado por "MAX_WORKERS" por vez.

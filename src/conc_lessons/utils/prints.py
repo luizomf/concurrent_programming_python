@@ -1,9 +1,9 @@
-# A largura das tags coloridas - Só para estilo
 from functools import partial
 
 from conc_lessons.utils.ansi import Ansi
 from conc_lessons.utils.logger import LOGGER
 
+# A largura das tags coloridas - Só para estilo
 TAG_COLUMN_WIDTH = 20
 
 

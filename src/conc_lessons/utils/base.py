@@ -23,13 +23,12 @@ def run_simulated_io(ident: str, nap_time: float = 1, clr: str = "") -> str:
     """
     curr_thread = threading.current_thread()
     name = curr_thread.name
-    cl = ""
 
     if ident.endswith("4"):
         m = f"Simulated error for {ident}"
         error = RuntimeError(m)
 
-        Print.clr(f" {name} ", repr(error), tag=f"{ident} Error")
+        Print.error(f" {name} ", repr(error), tag=f"{ident} Error")
 
         raise error
 

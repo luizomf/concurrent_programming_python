@@ -6,9 +6,7 @@ readme = "README.md"
 license = "MIT"
 authors = [{ name = "Luiz Otávio" }]
 requires-python = ">=3.14"
-dependencies = [
-    "pynput>=1.8.1",
-]
+dependencies = []
 
 [project.scripts]
 conc_lessons = "conc_lessons.main:run"
