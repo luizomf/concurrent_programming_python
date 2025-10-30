@@ -27,12 +27,13 @@ def print_clr(
         tagclrfg (str): Cor do texto para tag (se não informado, usa preto)
         clr (str): String com a cor ANSI do foreground (se torna background na tag)
     """
+    clr = clr or Ansi.whi
     clrs = f"{Ansi.res}{clr}"
     tag = tag.strip()
 
     if tag:
-        tagclrbg = tagclrbg if tagclrbg else clr.replace("38", "48")
-        tagclrfg = tagclrfg if tagclrfg else Ansi.bla
+        tagclrbg = tagclrbg or clr.replace("38", "48")
+        tagclrfg = tagclrfg or Ansi.bla
         tag = f"{tag.strip()[: TAG_COLUMN_WIDTH - 2]: ^{TAG_COLUMN_WIDTH}}"
         tag = f"{Ansi.res}{Ansi.b}{tagclrbg}{tagclrfg}{tag}{Ansi.res}"
     LOGGER.debug(f"{tag}{clrs}{sep.join(map(str, args))}{Ansi.res}{end}")
