@@ -5,6 +5,7 @@
 # https://en.wikipedia.org/wiki/Box_Drawing
 import re
 import shutil
+import unicodedata
 from typing import TYPE_CHECKING, Literal
 
 from conc_lessons.utils.system_random import sysrand
@@ -29,14 +30,23 @@ HOME = f"{CSI}H"
 EL = f"{CSI}K"  # limpa até o final da linha
 CL = f"{CSI}J"  # limpa da linha para baixo
 
-ANSI_ESCAPE = re.compile(r"\x1b\[([0-9;]*)[A-Za-z]")
+ANSI_ESCAPE_RE = re.compile(
+    r"(?:\x1B[@-Z\\-_]|[\x80-\x9A\x9C-\x9F]|(?:\x1B\[|\x9B)[0-?]*[ -/]*[@-~])",
+    re.IGNORECASE,
+)
+
 PROGRESS_CLR = f"{CSI}38;5;33m"
 
 PERCIVED_BRIGHTNESS = 130
 
 
-async def visible_width(s: str) -> int:
-    clean = ANSI_ESCAPE.sub("", s)
+async def aio_visible_width(s: str) -> int:
+    return visible_width(s)
+
+
+def visible_width(text: str) -> int:
+    normalized = unicodedata.normalize("NFC", text)
+    clean = ANSI_ESCAPE_RE.sub("", normalized)
     return len(clean)
 
 
@@ -148,15 +158,7 @@ yelb = f"{CSI}48;5;222m"  # yellow background
 yel = f"{CSI}38;5;222m"  # yellow foreground
 
 # 256 cores costuma ser compatível com a maioria dos terminals modernos
-CLRS256: list[str] = [
-    f"{CSI}38;5;{i}m" if i <= MAX_COLOR_NO else f"{CSI}38;5;{15}m"
-    for i in [
-        *range(2, 8),
-        *range(10, 16),
-        *range(17, 232),
-        *range(232, 1031),
-    ]
-]
+CLRS256: list[str] = [f"{CSI}38;5;{i}m" for i in [range(256)]]
 CLRS256BG: list[str] = [redb, purb, pinb, blub, cyab, greb, orab, yelb]
 
 
@@ -301,7 +303,7 @@ class Ansi:
     def rand_bg(*, true_color: bool = True) -> str:
         if true_color:
             return Ansi.fg_to_bg(sysrand.choice(CLRSTC))
-        return Ansi.fg_to_bg(sysrand.choice(CLRS256))
+        return Ansi.fg_to_bg(sysrand.choice(CLRS256BG))
 
     @staticmethod
     def bg_to_fg(clr: str) -> str:
