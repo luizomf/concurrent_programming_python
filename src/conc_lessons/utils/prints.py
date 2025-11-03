@@ -1,4 +1,5 @@
 from functools import partial
+from pprint import pprint
 
 from conc_lessons.utils.ansi import Ansi
 from conc_lessons.utils.logger import LOGGER
@@ -128,6 +129,8 @@ class Print:
 
     randf = make_partial_print(clr=f"{Ansi.rand_fg()}{Ansi.background(0)}")
     randb = make_partial_print(clr=f"{Ansi.foreground(0)}{Ansi.rand_bg()}")
+
+    pprint = partial(pprint)
 
 
 if __name__ == "__main__":

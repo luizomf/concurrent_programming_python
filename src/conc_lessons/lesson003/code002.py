@@ -9,14 +9,12 @@ if TYPE_CHECKING:
     from collections.abc import Callable
 
 
-#
-# Mudar a tipagem e usar ParamSpec no target
-#
 class MyThread[**P, R](threading.Thread):
     def __init__(
         self,
         target: Callable[P, R],
-        name: str | None = None,
+        name: str,
+        daemon: bool | None = None,  # noqa: FBT001
         *args: P.args,
         **kwargs: P.kwargs,
     ) -> None:
@@ -25,8 +23,8 @@ class MyThread[**P, R](threading.Thread):
             target=target,
             name=name,
             args=args,
-            kwargs=None,
-            daemon=None,
+            kwargs=kwargs,
+            daemon=daemon,
             context=None,
         )
         self._target = target
@@ -49,7 +47,13 @@ class MyThread[**P, R](threading.Thread):
 
 
 if __name__ == "__main__":
-    t1 = MyThread(target=run_simulated_io, ident="Thread 1", nap_time=1, clr=Ansi.pin)
+    t1 = MyThread(
+        target=run_simulated_io,
+        name="Thread 1",
+        ident="Thread 1",
+        nap_time=1,
+        clr=Ansi.pin,
+    )
     t1.start()
 
     Print.clr("Essa é a MainThread", clr=Ansi.cya)
