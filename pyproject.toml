@@ -6,7 +6,9 @@ readme = "README.md"
 license = "MIT"
 authors = [{ name = "Luiz Otávio" }]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "prompt-toolkit>=3.0.52",
+]
 
 [project.scripts]
 conc_lessons = "conc_lessons.main:run"
