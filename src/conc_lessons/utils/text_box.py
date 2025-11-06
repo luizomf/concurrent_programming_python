@@ -531,6 +531,40 @@ def compose_box_chrs(
     res_clr: str = "",
     size: Literal["LG", "SM"] = "SM",
 ) -> str:
+    """Cria um texto usando caracteres ANSI Box
+
+    Até o momento aceitamos apenas letras de A à Z, números de 0 à 9 e "." ou ":".
+    Os caracteres &!%~ representam espaços, como mostro abaixo:
+
+    - "~" um espaço sem cor
+    - "!" um espaço na cor da pontuação
+    - "%" um espaço na cor dos números
+    - "&" um espaço na cor das letras
+
+    Args:
+        text (str): texto que será convertido. Aceita apenas [a-zA-Z0-9.:~!%&]
+        num_clr (str, optional): Estilo ANSI para números (bg e fg)
+        chr_clr (str, optional): Estilo ANSI para letras (bg e fg)
+        punc_clr (str, optional): Estilo ANSI para pontuação (bg e fg)
+        res_clr (str, optional): Reset ANSI
+        size ('LG' | 'SM', optional): String literal LG ou SM para large ou small
+
+    Returns:
+        str: o texto de 'text' no formato de box_chrs
+
+    Example:
+        >>> python_logo = compose_box_chrs(
+        >>>    "&Python&%3.14%",
+        >>>    res_clr=Ansi.res,
+        >>>    chr_clr=f"{Ansi.blub}{Ansi.whi}",
+        >>>    punc_clr=f"{Ansi.yelb}{Ansi.bla}",
+        >>>    num_clr=f"{Ansi.yelb}{Ansi.bla}",
+        >>> )
+        >>> print(python_logo)
+        >>>    ┏━━┓  ╻  ╻  ╺━┳━  ╻  ╻  ┏━━┓  ┳━━┓        ╺━━┓          ┓   ╻  ╻
+        >>>    ┣━━┛  ┗━┳┛    ┃   ┣━━┫  ┃  ┃  ┃  ┃        ╺━━┫          ┃   ┗━━┫
+        >>>    ╹       ╹     ╹   ╹  ╹  ┗━━┛  ╹  ╹        ╺━━┛   ▪      ╹      ╹
+    """
     cleaned_text = BOX_NOT_ALLOWED_RE.sub("", text.strip())
     text_words = cleaned_text.split(" ")
     final_text = ""
